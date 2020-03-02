@@ -230,11 +230,20 @@ function love.update(dt)
     end
 
     --
-    -- paddles can move no matter what state we're in
+    -- player can move paddles no matter what state we're in
+    -- AI can only move the paddles in 'play' state
     --
     -- player 1
-    if player1.isAIActive then
+    if player1.isAIActive and gameState == 'play' then
         -- move paddle with ball
+        ballYAtPlayer1 = ((ball.dy / ball.dx) * (player1.x - ball.x)) + ball.y
+        if ballYAtPlayer1 > player1.y + (3 * (player1.height / 4)) then
+            player1.dy = PADDLE_SPEED
+        elseif ballYAtPlayer1 < player1.y + (player1.height / 4) then
+            player1.dy = -PADDLE_SPEED
+        else
+            player1.dy = 0;
+        end
     else
         if love.keyboard.isDown('w') then
             player1.dy = -PADDLE_SPEED
@@ -246,8 +255,16 @@ function love.update(dt)
     end
 
     -- player 2
-    if player2.isAIActive then
+    if player2.isAIActive and gameState == 'play' then
         -- move paddle with ball
+        ballYAtPlayer2 = ((ball.dy / ball.dx) * (player2.x - ball.x)) + ball.y
+        if player2.y + (3 * (player2.height / 4)) < ballYAtPlayer2 then
+            player2.dy = PADDLE_SPEED
+        elseif player2.y + (player2.height / 4) > ballYAtPlayer2 then
+            player2.dy = -PADDLE_SPEED
+        else
+            player2.dy = 0;
+        end
     else
         if love.keyboard.isDown('up') then
             player2.dy = -PADDLE_SPEED
@@ -304,6 +321,10 @@ function love.keypressed(key)
                 servingPlayer = 1
             end
         end
+    elseif key == 'lshift' then
+        player1.isAIActive = not(player1.isAIActive)
+    elseif key == 'rshift' then
+        player2.isAIActive = not(player2.isAIActive)
     end
 end
 
