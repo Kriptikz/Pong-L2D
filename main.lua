@@ -235,7 +235,7 @@ function love.update(dt)
     -- player 1
     if player1.isAIActive then
         -- move paddle with ball
-        player1.y = ball.y
+        player1.y = ball.y - (player1.height / 2)
     else
         if love.keyboard.isDown('w') then
             player1.dy = -PADDLE_SPEED
@@ -249,7 +249,7 @@ function love.update(dt)
     -- player 2
     if player2.isAIActive then
         -- move paddle with ball
-        player2.y = ball.y
+        player2.y = ball.y - (player2.height / 2)
     else
         if love.keyboard.isDown('up') then
             player2.dy = -PADDLE_SPEED
