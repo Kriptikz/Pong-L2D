@@ -320,6 +320,10 @@ function love.keypressed(key)
                 servingPlayer = 1
             end
         end
+    elseif key == 'lshift' then
+        player1.isAIActive = not(player1.isAIActive)
+    elseif key == 'rshift' then
+        player2.isAIActive = not(player2.isAIActive)
     end
 end
 
