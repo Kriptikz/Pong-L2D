@@ -230,11 +230,10 @@ function love.update(dt)
     end
 
     --
-    -- player can move paddles no matter what state we're in
-    -- AI can only move the paddles in 'play' state
+    -- paddles can move no matter what state we're in
     --
     -- player 1
-    if player1.isAIActive and gameState == 'play' then
+    if player1.isAIActive then
         -- move paddle with ball
         ballYAtPlayer1 = ((ball.dy / ball.dx) * (player1.x - ball.x)) + ball.y
         if ballYAtPlayer1 > player1.y + (3 * (player1.height / 4)) then
@@ -255,7 +254,7 @@ function love.update(dt)
     end
 
     -- player 2
-    if player2.isAIActive and gameState == 'play' then
+    if player2.isAIActive then
         -- move paddle with ball
         ballYAtPlayer2 = ((ball.dy / ball.dx) * (player2.x - ball.x)) + ball.y
         if player2.y + (3 * (player2.height / 4)) < ballYAtPlayer2 then
