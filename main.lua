@@ -249,7 +249,13 @@ function love.update(dt)
     -- player 2
     if player2.isAIActive then
         -- move paddle with ball
-        player2.y = ball.y - (player2.height / 2)
+        if player2.y + (3 * (player2.height / 4)) < ball.y then
+            player2.dy = PADDLE_SPEED
+        elseif player2.y + (player2.height / 4) > ball.y then
+            player2.dy = -PADDLE_SPEED
+        else
+            player2.dy = 0;
+        end
     else
         if love.keyboard.isDown('up') then
             player2.dy = -PADDLE_SPEED
